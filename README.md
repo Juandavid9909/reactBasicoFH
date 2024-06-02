@@ -1,118 +1,130 @@
-t# ¿Qué es JSX?
+# ¿Qué es JSX?
 
 Básicamente es JavaScript + XML, nos permite alterar el DOM más fácilmente con los comandos preparados en React.
 
 
-# ¿Qué es Babel?
+#  ¿Qué es Babel?
 
 Transforma nuestro código para que cualquier navegador lo pueda entender a pesar de usar features que no son soportadas.
 
 
-# ¿Qué es un componente?
+#  ¿Qué es un componente?
 
 Pequeña pieza de código encapsulada re-utilizable que puede tener un estado o no.
 
 
-# Hooks
+#  Hooks
 
 Son funciones que nos permiten hacer ciertas cosas en nuestro código para detectar o lanzar eventos.
 
 
-## useState
+##  useState
 
 Nos permite crear variables, y su sintaxis nos permite colocar el nombre de la variable y el nombre de la función que queremos utilizar para cambiar su valor:
 
 ```javascript
-const [variable, setVariable] = useState("");
+const [variable, setVariable] =  useState("");
 ```
 
 
-# Tipos de pruebas
+## useEffect
 
-- **Unitarias:** Enfocadas en pequeñas funcionalidades.
-- **Integración:** Enfocadas en cómo reaccionan varias piezas en conjunto.
+Es un hook de React que sirve para disparar efectos secundarios. Un efecto secundario es algún proceso que nosotros  queremos ejecutar cuando algo suceda.
 
-
-# Configurar Jest en React
-
-## yarn
-
-```bash
-yarn add --dev jest
-yarn add --dev @types/jest
-yarn add --dev babel-jest @babel/core @babel/preset-env
-yarn add --dev watwg-fetch
+```javascript
+useEffect(() => {
+	nuestroCodigo();
+}, [dependencias]);
 ```
 
 
-## npm
+#  Tipos de pruebas
+
+-  **Unitarias:** Enfocadas en pequeñas funcionalidades.
+-  **Integración:** Enfocadas en cómo reaccionan varias piezas en conjunto.
+
+
+#  Configurar Jest en React
+
+
+##  yarn
 
 ```bash
-npm install --save-dev jest
-npm install --save-dev @types/jest
-npm install --save-dev babel-jest @babel/core @babel/preset-env
-npm install --save-dev watwg-fetch
+yarn  add  --dev  jest
+yarn  add  --dev  @types/jest
+yarn  add  --dev  babel-jest  @babel/core  @babel/preset-env
+yarn  add  --dev  watwg-fetch
+```
+
+
+##  npm
+
+```bash
+npm  install  --save-dev  jest
+npm  install  --save-dev  @types/jest
+npm  install  --save-dev  babel-jest  @babel/core  @babel/preset-env
+npm  install  --save-dev  watwg-fetch
 ```
 
 Luego de haber instalado la dependencia debemos agregar el comando al `package.json`:
 
 ```json
-    "test": "jest"
+"test": "jest"
 ```
 
 Después de todo esto se debe crear el archivo `babel.config.cjs` y colocar lo siguiente:
 
 ```javascript
 module.exports = {
-    presets: [
-        [
-            "@babel/preset-env",
-            {
-                targets: {
-                    node: "current"
-                }
-            }
-        ]
-    ]
+	presets: [
+		[
+			"@babel/preset-env",
+			{
+				targets: {
+					node: "current"
+				}
+			}
+		]
+	]
 }
 ```
 
 Creamos el archivo `jest.setup.js` y agregamos el siguiente import:
 
 ```javascript
-import "whatwg-fetch";
+import  "whatwg-fetch";
 ```
 
 Y por último configuramos el `jest.config.cjs`:
 
 ```javascript
 module.exports = {
-    setupFiles: ["./jest.setup.js"]
+	setupFiles: ["./jest.setup.js"]
 }
 ```
 
 Con todo esto podemos probar JavaScript puro, ahora para probar React se requieren hacer estos pasos adicionales:
 
-### yarn
+###  yarn
 ```bash
-yarn add --dev @testing-library/react
-yarn add --dev jest-environment-jsdom
-yarn add --dev @babel/preset-react
+yarn  add  --dev  @testing-library/react
+yarn  add  --dev  jest-environment-jsdom
+yarn  add  --dev  @babel/preset-react
 ```
 
-### npm
+###  npm
 ```bash
-npm install --save-dev @testing-library/react
-npm install --save-dev jest-environment-jsdom
-npm install --save-dev @babel/preset-react
+npm  install  --save-dev  @testing-library/react
+npm  install  --save-dev  jest-environment-jsdom
+npm  install  --save-dev  @babel/preset-react
 ```
 
 Y adicional, se configura el `jest.config.cjs`:
 
 ```javascript
 module.exports = {
-    testEnvironment: "jest-environment-jsdom",
-    setupFiles: ["./jest.setup.js"]
+	testEnvironment: "jest-environment-jsdom",
+	setupFiles: ["./jest.setup.js"]
 }
 ```
 
@@ -120,29 +132,30 @@ Y también se ajusta el `babel.config.cjs`:
 
 ```javascript
 module.exports = {
-    presets: [
-        [
-            "@babel/preset-env",
-            {
-                targets: {
-                    esmodules: true
-                }
-            }
-        ],
-        [
-            "@babel/preset-react",
-            {
-                runtime: "automatic"
-            }
-        ]
-    ]
+	presets: [
+		[
+			"@babel/preset-env",
+			{
+				targets: {
+					esmodules: true
+				}
+			}
+		],
+		[
+			"@babel/preset-react",
+			{
+				runtime: "automatic"
+			}
+		]
+	]
 }
 ```
 
 
-## Comandos de Jest
+##  Comandos de Jest
 
-### JavaScript
+###  JavaScript
+
 ```javascript
 // toBe valida que sea igual
 expect("Hola mundo").toBe("Hola mundo");
@@ -166,13 +179,13 @@ expect(true).toBeTruthy();
 expect("Hola").toContain("la");
 ```
 
-### React
+###  React
 ```javascript
 // Renderiza la etiqueta seleccionada
 render(<etiqueta />);
 
 // Container retorna el html, getByText verifica que un texto exista en el elemento, y getByTestId permite obtener elementos html por el atributo data-testid
-const { container, getByText, getByTestId } = render(<FirstApp title={ title } />);
+const { container, getByText, getByTestId } =  render(<FirstApp  title={  title  } />);
 
 // Trae todas las coincidencias en un arreglo, para las anteriores se puede usar lo mismo, sól ose debe cambiar el getBy por getAllBy
 getAllByText();
@@ -184,6 +197,7 @@ expect(screen.getByRole("heading", { level: 1 }).innerHTML).toContain(title);
 fireEvent.click(screen.getByText("+1"));
 
 // Si se quiere seleccionar por un aria-label
-<button aria-label="btn-reset" onClick={ handleReset }>Reset</button>
+<button  aria-label="btn-reset"  onClick={  handleReset  }>Reset</button>
+
 fireEvent.click(screen.getByRole("button", { name: "btn-reset" }));
 ```
