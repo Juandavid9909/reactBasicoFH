@@ -24,6 +24,18 @@ Nos permite crear variables, y su sintaxis nos permite colocar el nombre de la v
 
 ```javascript
 const [variable, setVariable] =  useState("");
+
+// Actualizar state con json
+setFormState((prev)  => ({
+	...prev,
+	[name]: value
+}));
+
+// o también
+setFormState((prev)  => ({
+	...formState,
+	[name]: value
+}));
 ```
 
 
@@ -35,6 +47,25 @@ Es un hook de React que sirve para disparar efectos secundarios. Un efecto secun
 useEffect(() => {
 	nuestroCodigo();
 }, [dependencias]);
+```
+
+Al useEffect le podemos colocar el arreglo de dependencias que dispararán nuestro useEffect para ejecutar lo que necesitemos. Lo recomendado es crear un useEffect pequeño por cada cambio específico que necesitemos, evitar las funciones con muchas instrucciones en nuestros useEffect.
+
+Tambi{en podemos crear una función de retorno que se ejecutará cuando ya se acabe el llamado a un componente.
+
+```javascript
+useEffect(()  => {
+	const  onMouseMove  =  ({ x, y })  => {
+		const  coords  = { x, y };
+		console.log(coords);
+	}
+
+	window.addEventListener("mousemove", onMouseMove);
+
+	return  ()  => {
+		window.removeEventListener("mousemove", onMouseMove);
+	}
+}, []);
 ```
 
 
