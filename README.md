@@ -139,6 +139,35 @@ const  incrementFather  =  useCallback((value)  => {
 ```
 
 
+## useReducer
+
+Es una función común y corriente, la cual no puede ser asíncrona. Esta debe ser una función pura (todas las instrucciones deben de resolverse de manera interna) y debe retornar siempre un nuevo estado. También hay que tener en cuenta que sólo recibe 2 argumentos, los cuales son el valor inicial y la acción a ejecutar.
+
+```jsx
+const initialTodos = [
+	{
+		id: 1,
+		todo: "Comprar pan",
+		done: false
+	}
+];
+
+const todoReducer = (state= initialTodos, action) => {
+	return state;
+}
+```
+
+### Función pura
+1. No debe de tener efectos secundarios. Es decir que no debe de llamar a otras funciones, todo debe ejecutarse internamente.
+2. No debe de tener tareas asíncronas.
+3. Debe de retornar siempre un estado nuevo.
+4. No debe de llamar **localStorage** ni **sessionStorage**.
+5. No debe de requerir más que una acción que puede tener un argumento.
+
+### Funcionamiento
+Al iniciar la aplicación tendremos un estado inicial, en este caso un arreglo que tiene TODOs, luego el componente se muestra en pantalla y el state le pasa los datos a la pantalla para que se vean. También se crea una acción, en este caso podría ser para agregar nuevos TODOs, borrar y/o actualizarlos.
+
+
 #  Tipos de pruebas
 
 -  **Unitarias:** Enfocadas en pequeñas funcionalidades.
