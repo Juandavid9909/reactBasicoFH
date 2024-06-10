@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { MultipleCustomHooks } from "./03-examples/MultipleCustomHooks";
+import { Padre } from "./07-tarea-memo/Padre";
 
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MultipleCustomHooks />
+    <Padre />
   </React.StrictMode>,
 )

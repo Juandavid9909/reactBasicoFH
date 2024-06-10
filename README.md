@@ -15,14 +15,14 @@ Pequeña pieza de código encapsulada re-utilizable que puede tener un estado o 
 
 #  Hooks
 
-Son funciones que nos permiten hacer ciertas cosas en nuestro código para detectar o lanzar eventos.
+Son funciones que nos permiten hacer ciertas cosas en nuestro código para detectar o lanzar eventos. Para más información sobre los Hooks se puede acceder a este [link](https://es.legacy.reactjs.org/docs/hooks-reference.html#uselayouteffect).
 
 
 ##  useState
 
 Nos permite crear variables, y su sintaxis nos permite colocar el nombre de la variable y el nombre de la función que queremos utilizar para cambiar su valor:
 
-```javascript
+```jsx
 const [variable, setVariable] =  useState("");
 
 // Actualizar state con json
@@ -43,7 +43,7 @@ setFormState((prev)  => ({
 
 Es un hook de React que sirve para disparar efectos secundarios. Un efecto secundario es algún proceso que nosotros  queremos ejecutar cuando algo suceda.
 
-```javascript
+```jsx
 useEffect(() => {
 	nuestroCodigo();
 }, [dependencias]);
@@ -51,9 +51,9 @@ useEffect(() => {
 
 Al useEffect le podemos colocar el arreglo de dependencias que dispararán nuestro useEffect para ejecutar lo que necesitemos. Lo recomendado es crear un useEffect pequeño por cada cambio específico que necesitemos, evitar las funciones con muchas instrucciones en nuestros useEffect.
 
-Tambi{en podemos crear una función de retorno que se ejecutará cuando ya se acabe el llamado a un componente.
+También podemos crear una función de retorno que se ejecutará cuando ya se acabe el llamado a un componente.
 
-```javascript
+```jsx
 useEffect(()  => {
 	const  onMouseMove  =  ({ x, y })  => {
 		const  coords  = { x, y };
@@ -66,6 +66,76 @@ useEffect(()  => {
 		window.removeEventListener("mousemove", onMouseMove);
 	}
 }, []);
+```
+
+
+## useRef
+
+Nos sirve para manejar un valor de alguna variable que podemos cambiar, trabajar con ella, pero no dispara renderizaciones cuando hacemos un cambio. Es como un useState que no dispara renderizaciones. Esto nos permite seleccionar por ejemplo elementos HTML para obtener sus datos y demás sin renderizar nada.
+
+```jsx
+const  inputRef  =  useRef();
+
+<input
+	ref={ inputRef }
+	type="text"
+	placeholder="Ingrese su nombre"
+	className="form-control"
+/>
+```
+
+
+## useLayoutEffect
+
+Tiene una firma idéntica del useEffect, pero se dispara de forma síncrona después de que todas las mutaciones del DOM se han disparado.
+
+```jsx
+useLayoutEffect(()  => {
+	const { height, width } = (pRef.current.getBoundingClientRect());
+
+	setBoxSize({ height, width });
+}, [sprites]);
+```
+
+
+## Función memo
+
+Básicamente le dice a React que memorice un componente para no renderizarlo a pesar de que se apliquen cambios en el componente padre. Sólo se renderiza cuando se hacen cambios en el componente donde se agregó la función memo.
+
+```jsx
+import { memo } from  "react";
+
+export  const  Small  =  memo(({ value })  => {
+	console.log("Me volví a generar :(");
+
+	return (
+		<small>{ value }</small>
+	);
+});
+```
+
+
+## useMemo
+
+Nos permite memorizar el resultado o el valor de una variable, para cuando React vuelva a redibujar un componente, si dicho valor no ha cambiado no reprocese lo que esté asociado a la variable que tenemos asociada a nuestro hook useMemo.
+
+```jsx
+const  memorizedValue  =  useMemo(()  =>  heavyStuff(counter), [counter]);
+
+return(
+	<h4>{ memorizedValue }</h4>
+);
+```
+
+
+## useCallback
+
+Un claro ejemplo de uso de este Hook es cuando pasamos funciones de un componente a otro. Esto es debido a cómo funciona React, ya que las funciones cada vez que se genera el componente apuntan a un espacio en memoria distinto, por lo que detecta la función como una diferente y generará las renderizaciones adicionales.
+
+```jsx
+const  incrementFather  =  useCallback((value)  => {
+	setCounter((c) => c + value);
+}, [counter]);
 ```
 
 
@@ -231,7 +301,7 @@ expect("Hola").toContain("la");
 ```
 
 ###  React
-```javascript
+```jsx
 // Renderiza la etiqueta seleccionada
 render(<etiqueta />);
 
