@@ -168,6 +168,111 @@ const todoReducer = (state= initialTodos, action) => {
 Al iniciar la aplicación tendremos un estado inicial, en este caso un arreglo que tiene TODOs, luego el componente se muestra en pantalla y el state le pasa los datos a la pantalla para que se vean. También se crea una acción, en este caso podría ser para agregar nuevos TODOs, borrar y/o actualizarlos.
 
 
+## useContext
+
+Muchas veces tendremos datos anidados, es decir que se crean en un componente padre y se pasan del padre al hijo, del hijo al nieto, y del nieto al bisnieto (pueden ser más niveles). Esto es un claro indicador de que podríamos hacer uso de un context para guardar la información y que esta esté disponible donde la necesitemos sin necesidad de pasar los datos por tantos componentes de forma anidada.
+
+
+# Rutas
+
+En React podemos utilizar el paquete **react-router-dom** para construir las rutas de nuestra aplicación. Este es un High Order Component, lo que significa que es un componente normal de React como los que construimos, pero recibe otros componentes dentro, se debe configurar en nuestro main.jsx.
+
+```jsx
+import { BrowserRouter } from  "react-router-dom";
+import  React  from  "react";
+import  ReactDOM  from  "react-dom/client";
+
+import { MainApp } from  "./09-useContext/MainApp";
+
+import  "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+	<BrowserRouter>
+		<React.StrictMode>
+			<MainApp  />
+		</React.StrictMode>
+	</BrowserRouter>
+);
+```
+
+Hecho esto podemos configurar las rutas en nuestro componente principal utilizando las herramientas que nos brinda react-router-dom.
+
+```jsx
+import { Navigate, Route, Routes } from  "react-router-dom";
+
+import { AboutPage } from  "./AboutPage";
+import { HomePage } from  "./HomePage";
+import { LoginPage } from  "./LoginPage";
+
+export  const  MainApp  =  ()  => {
+	return (
+		<>
+			<h1>MainApp</h1>
+
+			<hr  />
+
+			<Routes>
+				<Route  path="/"  element={  <HomePage  />  }  />
+
+				<Route  path="/login"  element={  <LoginPage  />  }  />
+
+				<Route  path="/about"  element={  <AboutPage  />  }  />
+
+				{/* <Route path="/*" element={ <LoginPage /> } /> */}
+
+				<Route  path="/*"  element={  <Navigate  to="/about"  />  }  />
+			</Routes>
+		</>
+	);
+}
+```
+
+También existen los NavLink, los cuales nos permiten actuar dependiendo de la ruta en la que nos encontremos, por ejemplo si queremos agregar clases basados en si nos encontramos en la ruta o no, lo podemos hacer fácilmente con los NavLink.
+
+```jsx
+import { Link, NavLink } from  "react-router-dom";
+
+export  const  Navbar  =  ()  => {
+	return (
+		<nav  className="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
+			<div  className="container-fluid">
+				<Link  className="navbar-brand"  to="/">useContext</Link>
+
+				<button  className="navbar-toggler"  type="button"  data-bs-toggle="collapse"  data-bs-target="#navbarNav"  aria-controls="navbarNav"  aria-expanded="false"  aria-label="Toggle navigation">
+					<span  className="navbar-toggler-icon"></span>
+				</button>
+
+				<div  className="collapse navbar-collapse"  id="navbarNav">
+					<ul  className="navbar-nav">
+						<NavLink
+							className={  ({ isActive })  =>  `nav-link ${ isActive  ?  "active"  :  "" }`  }
+							to="/"
+						>
+							Home
+						</NavLink>
+
+						<NavLink
+							className={  ({ isActive })  =>  `nav-link ${ isActive  ?  "active"  :  "" }`  }
+							to="/about"
+						>
+							About
+						</NavLink>
+
+						<NavLink
+							className={  ({ isActive })  =>  `nav-link ${ isActive  ?  "active"  :  "" }`  }
+							to="/login"
+						>
+							Login
+						</NavLink>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	);
+}
+```
+
+
 #  Tipos de pruebas
 
 -  **Unitarias:** Enfocadas en pequeñas funcionalidades.
