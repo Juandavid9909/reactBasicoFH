@@ -40,6 +40,7 @@ export const MultipleCustomHooks = () => {
             <button
                 className="btn btn-primary mt-2"
                 onClick={ () => increment() }
+                disabled={ isLoading }
             >
                 Siguiente
             </button>

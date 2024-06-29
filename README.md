@@ -430,6 +430,55 @@ module.exports = {
 ```
 
 
+## Instalación y configuracion de Jest + React Testing Library
+## En proyectos de React + Vite
+
+1. Instalaciones:
+```bash
+yarn add --dev jest babel-jest @babel/preset-env @babel/preset-react 
+yarn add --dev @testing-library/react @types/jest jest-environment-jsdom
+```
+
+2. Opcional: Si usamos Fetch API en el proyecto:
+```bash
+yarn add --dev whatwg-fetch
+```
+
+3. Actualizar los scripts del __package.json__
+```json
+"scripts: {
+	...
+	"test": "jest --watchAll"
+}
+```
+
+4. Crear la configuración de babel __babel.config.cjs__
+```json
+module.exports = {
+    presets: [
+        [ '@babel/preset-env', { targets: { esmodules: true } } ],
+        [ '@babel/preset-react', { runtime: 'automatic' } ],
+    ],
+};
+```
+
+5. Opcional, pero eventualmente necesario, crear Jest config y setup:
+
+__jest.config.cjs__
+```json
+module.exports = {
+    testEnvironment: 'jest-environment-jsdom',
+    setupFiles: ['./jest.setup.js']
+}
+```
+
+__jest.setup.js__
+```jsx
+// En caso de necesitar la implementación del FetchAPI
+import 'whatwg-fetch'; // <-- yarn add whatwg-fetch
+```
+
+
 ##  Comandos de Jest
 
 ###  JavaScript
@@ -515,4 +564,25 @@ const  input  =  screen.getByRole("textbox");
 
 fireEvent.input(input, { target: { value: "Saitama" } });
 expect(input.value).toBe("Saitama");
+
+
+// Probar hooks
+const { result } =  renderHook(()  =>  useCounter());
+const { counter, decrement, increment, reset } =  result.current;
+
+expect(counter).toBe(10);
+expect(decrement).toEqual(expect.any(Function));
+expect(increment).toEqual(expect.any(Function));
+expect(reset).toEqual(expect.any(Function));
+
+
+// Probar función en Hook que cambia el valor de las variables
+const { result } =  renderHook(()  =>  useCounter(100));
+const { counter, increment } =  result.current;
+
+act(()  => {
+	increment();
+});
+
+expect(result.current.counter).toBe(101);
 ```
