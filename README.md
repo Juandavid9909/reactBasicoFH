@@ -172,6 +172,29 @@ Al iniciar la aplicación tendremos un estado inicial, en este caso un arreglo q
 
 Muchas veces tendremos datos anidados, es decir que se crean en un componente padre y se pasan del padre al hijo, del hijo al nieto, y del nieto al bisnieto (pueden ser más niveles). Esto es un claro indicador de que podríamos hacer uso de un context para guardar la información y que esta esté disponible donde la necesitemos sin necesidad de pasar los datos por tantos componentes de forma anidada.
 
+```jsx
+// Archivo donde se crea el contexto
+import { createContext } from  "react";
+
+export  const  UserContext  =  createContext();
+
+
+// Provider
+import { UserContext } from  "./UserContext";
+
+export const UserProvider = ({ children }) => {
+	return (
+		<UserContext.Provider value={{ hola: "mundo" }}>
+			{ children }
+		</UserContext.Provider>
+	);
+}
+
+
+// Obtener el valor
+const { hola } =  useContext(UserContext);
+```
+
 
 # Rutas
 
