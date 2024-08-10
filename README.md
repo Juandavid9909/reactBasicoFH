@@ -296,6 +296,69 @@ export  const  Navbar  =  ()  => {
 ```
 
 
+## Rutas privadas
+
+Si se quieren generar rutas privadas y públicas para garantizar que sólo los usuarios autenticados puedan acceder, podemos hacer algo como lo siguiente:
+
+```jsx
+// PrivateRoute.jsx
+import { useContext } from  "react";
+
+import { AuthContext } from  "../../auth";
+import { Navigate } from  "react-router-dom";
+
+export  const  PrivateRoute  =  ({ children })  => {
+	const { logged } =  useContext(AuthContext);
+
+	return  logged
+		?  children
+		:  <Navigate  to="/login"  />;
+}
+
+// PublicRoute.jsx
+import { useContext } from  "react";
+
+import { AuthContext } from  "../../auth";
+import { Navigate } from  "react-router-dom";
+
+export  const  PublicRoute  =  ({ children })  => {
+	const { logged } =  useContext(AuthContext);
+
+	return  !logged
+		?  children
+		:  <Navigate  to="/ruta"  />;
+}
+
+// AppRouter
+import { Route, Routes } from  "react-router-dom";
+
+import { HeroesRoutes } from  "../heroes";
+import { LoginPage } from  "../auth";
+import { PrivateRoute } from  "../heroes/routes/PrivateRoute";
+import { PublicRoute } from  "../heroes/routes/PublicRoute";
+
+export  const  AppRouter  =  ()  => {
+	return (
+		<Routes>
+			<Route  path="login"  element={
+				<PublicRoute>
+					<LoginPage  />
+				</PublicRoute>
+			}  />
+
+			<Route  path="/*"  element={
+				<PrivateRoute>
+					<HeroesRoutes  />
+				</PrivateRoute>
+			}  />
+
+			<Route  path="/*"  element={  <HeroesRoutes  />  }  />
+		</Routes>
+	);
+}
+```
+
+
 #  Tipos de pruebas
 
 -  **Unitarias:** Enfocadas en pequeñas funcionalidades.
