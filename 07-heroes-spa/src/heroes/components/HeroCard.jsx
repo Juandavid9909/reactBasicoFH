@@ -4,16 +4,9 @@ const CharactersByHero = ({ alter_ego, characters }) => {
     return alter_ego === characters
         ? <></>
         : <p>{ characters }</p>;
-}
+};
 
-export const HeroCard = ({
-    id,
-    superhero,
-    publisher,
-    alter_ego,
-    first_appearance,
-    characters
-}) => {
+export const HeroCard = ({ id, superhero, publisher, alter_ego, first_appearance, characters }) => {
     const heroImageUrl = `/assets/heroes/${ id }.jpg`;
 
     return (
@@ -30,20 +23,26 @@ export const HeroCard = ({
 
                     <div className="col-8">
                         <div className="card-body">
-                            <h5 className="card-title">{ superhero }</h5>
+                            <h5 className="card-title">
+                                { superhero }
+                            </h5>
 
-                            <p className="card-text">{ alter_ego }</p>
+                            <p className="card-text">
+                                { alter_ego }
+                            </p>
 
                             <CharactersByHero
-                                characters={ characters }
                                 alter_ego={ alter_ego }
+                                characters={ characters }
                             />
 
                             <p className="card-text">
                                 <small className="text-muted">{ first_appearance }</small>
                             </p>
 
-                            <Link to={ `/hero/${ id }` }>
+                            <Link
+                                to={ `/hero/${ id }` }
+                            >
                                 Más...
                             </Link>
                         </div>

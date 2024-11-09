@@ -11,14 +11,16 @@ export const HeroPage = () => {
 
     const onNavigateBack = () => {
         navigate(-1);
-    }
+    };
 
     if(!hero) {
-        return <Navigate to="/marvel" />
+        return (
+            <Navigate to="/marvel" />
+        );
     }
 
     return (
-        <div className="row mt-5">
+        <div className="row mt-4">
             <div className="col-4">
                 <img
                     className="img-thumbnail animate__animated animate__fadeInLeft"
