@@ -370,6 +370,11 @@ En Redux tenemos el término Store, que es la fuente única de la verdad. Con es
 - **Redux Toolkit:** Nos ayuda a que la implementación de Redux en React sea bastante sencillo, ya no habría que hacer funciones para combinar reducers, etc.
 - **RTK Query:** No es necesario para usar Redux, pero con esto podremos darle monitoreo a peticiones HTTP.
 
+```bash
+# Instalación de dependencias
+yarn add @reduxjs/toolkit react-redux
+```
+
 
 #  Tipos de pruebas
 
