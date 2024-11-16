@@ -359,6 +359,18 @@ export  const  AppRouter  =  ()  => {
 ```
 
 
+# Redux
+
+Es un contenedor predecible del estado de nuestra aplicación. Es una forma de controlar dónde se encuentra la información de mi aplicación en todo momento.
+
+En Redux tenemos el término Store, que es la fuente única de la verdad. Con esto, los componentes irán al Store a sacar la información que necesitan para trabajar.
+
+- **Redux:** Es el patrón en el cual se basa para crear nuevos estados. Basado en reducers para crear los nuevos estados.
+- **React Redux:** Era la forma tradicional de trabajar con Redux dentro de aplicaciones de React. Cuenta con distintas formas de manejar el state y el store. Hay mucho boilerplate, quiere decir que si queremos hacer algo con React Redux tedremos que escribir mucho código ya que es muy manual.
+- **Redux Toolkit:** Nos ayuda a que la implementación de Redux en React sea bastante sencillo, ya no habría que hacer funciones para combinar reducers, etc.
+- **RTK Query:** No es necesario para usar Redux, pero con esto podremos darle monitoreo a peticiones HTTP.
+
+
 #  Tipos de pruebas
 
 -  **Unitarias:** Enfocadas en pequeñas funcionalidades.
