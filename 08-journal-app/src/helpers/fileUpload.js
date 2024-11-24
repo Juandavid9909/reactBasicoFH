@@ -1,7 +1,8 @@
 export const fileUpload = async(file) => {
-    if(!file) throw new Error("No tenemos ningún archivo a subir");
+    if (!file) return null;
 
-    const cloudUrl = import.meta.env.VITE_CLOUDINARY_URL;
+    const cloudUrl =
+        import.meta.env.VITE_CLOUDINARY_URL;
     const formData = new FormData();
 
     formData.append("upload_preset", "react-journal");
@@ -13,12 +14,12 @@ export const fileUpload = async(file) => {
             body: formData
         });
 
-        if(!resp.ok) throw new Error("No se pudo subir la imagen");
+        if (!resp.ok) throw new Error("No se pudo subir la imagen");
 
         const cloudResp = await resp.json();
 
         return cloudResp;
     } catch (error) {
-        throw new Error(error.message);
+        return null;
     }
 };
