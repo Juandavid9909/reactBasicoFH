@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 
 const { dbConnection } = require("./database/config");
@@ -9,6 +10,9 @@ const app = express();
 
 // Base de datos
 dbConnection();
+
+// CORS
+app.use(cors());
 
 // Directorio público
 app.use(express.static("public"));
