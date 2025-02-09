@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
 import { CalendarPage } from "../calendar";
 import { LoginPage } from "../auth";
 import { useAuthStore } from "../hooks";
-import { useEffect } from "react";
 
 export const AppRouter = () => {
     const { status, checkAuthToken } = useAuthStore();
